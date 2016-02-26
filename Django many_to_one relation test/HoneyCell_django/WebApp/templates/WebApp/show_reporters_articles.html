@@ -1,0 +1,140 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static "WebApp/css/bootstrap.css" %}" type="text/css">
+    <link rel="stylesheet" href="{% static "WebApp/css/result.css" %}" type="text/css">
+    <script src="{% static "WebApp/js/d3.min.js" %}"></script>
+    <script src="{% static "WebApp/js/dimple.v2.1.6.min.js" %}"></script>
+</head>
+
+<body>
+<div id="nav">
+    <div id="logo">
+        <a href="{% url 'index' %}"><img src="{% static "WebApp/img/logo.jpeg" %}" alt="logo"></a>
+    </div>
+    <ul id="navi">
+        <li class="navMenu"><a href="{% url 'honeycell' %}">HoneyCell</a></li>
+        <li class="navMenu"><a href="{% url 'upload' %}">New Task</a></li>
+        <li class="navMenu"><a href="{% url 'preprocess' %}">Preprocessing</a></li>
+        <li class="navMenu"><a href="{% url 'analytics' %}">Analytics</a></li>
+        <li class="navMenu"><a href="{% url 'visualization' %}">Visualization</a></li>
+        <li class="navMenu"><a href="{% url 'logout' %}">Logout</a></li>
+    </ul>
+</div>
+
+<h2 class="log"> Hello {{ user }} </h2>
+
+<br>
+
+<div class="container">
+    <div class="row" align="center">
+        <div class="table-responsive">
+            <table class="table table-hover" border="3">
+
+
+                <thead>
+                <tr>
+                    <th colspan="6"><h3 align="center">Here are all the reporters and articles.</h3></th>
+                </tr>
+                </thead>
+                <tbody>
+
+{#                    <tr>#}
+{#                        <td rowspan="4">#}
+{#                            Reporter_1#}
+{#                        </td>#}
+{#                            <tr>#}
+{#                                <td>headline_1</td>#}
+{#                                <td>content_1</td>#}
+{#                                <td>pub_date_1</td>#}
+{#                            </tr>#}
+{#                            <tr>#}
+{#                                <td>headline_2</td>#}
+{#                                <td>content_2</td>#}
+{#                                <td>pub_date_2</td>#}
+{#                            </tr>#}
+{#                            <tr>#}
+{#                                <td>headline_3</td>#}
+{#                                <td>content_3</td>#}
+{#                                <td>pub_date_3</td>#}
+{#                            </tr>#}
+{#                    </tr>#}
+
+
+
+
+                    {% for each_reporter_articles in data %}
+                        <tr>
+                            <td>Reporter</td>
+                            <td>Headline</td>
+                            <td>Conten</td>
+                            <td>Pub_date</td>
+                        </tr>
+                        <tr>
+
+
+                            {% if each_reporter_articles.articles %}
+                                <td rowspan="{{ each_reporter_articles.row_span }}">
+                                    {{ each_reporter_articles.reporter.first_name }} {{ each_reporter_articles.reporter.last_name }}
+                                </td>
+                                {% for article in each_reporter_articles.articles %}
+                                    <tr>
+                                        <td>{{ article.headline }}</td>
+                                        <td>{{ article.content }}</td>
+                                        <td>{{ article.pub_date }}</td>
+                                    </tr>
+                                {% endfor %}
+                            {% else %}
+                                <td>
+                                    {{ each_reporter_articles.reporter.first_name }} {{ each_reporter_articles.reporter.last_name }}
+                                </td>
+                                <td colspan="3">
+                                    <p style="color: red" align="center">There is no article for this reporter.</p>
+                                </td>
+                            {% endif %}
+
+
+                        </tr>
+                        <tr>
+                            <td colspan="4"><p></p></td>
+                        </tr>
+                    {% endfor %}
+
+
+
+
+                </tbody>
+            </table>
+        </div>
+
+        <hr>
+
+        <h2 align="center"><a href="{% url 'add_reporter' %}"><button>Add reporter</button></a></h2>
+
+        <hr>
+
+        <h2 align="center"><a href="{% url 'add_article' %}"><button>Add article</button></a></h2>
+
+        <hr>
+
+        <h2 align="center"><a href="{% url 'message' %}"><button>Back to message page</button></a></h2>
+
+        <hr>
+
+    </div>
+</div>
+
+<h3>
+    Welcome to HoneyCell WebServer!
+</h3>
+<form method="get" action="{% url 'logout' %}">{% csrf_token %}
+    <p>
+        <button type="submit">Log Out</button>
+    </p>
+</form>
+
+</body>
+</html>
+

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static "WebApp/css/bootstrap.css" %}" type="text/css">
+    <link rel="stylesheet" href="{% static "WebApp/css/result.css" %}" type="text/css">
+    <script src="{% static "WebApp/js/d3.min.js" %}"></script>
+    <script src="{% static "WebApp/js/dimple.v2.1.6.min.js" %}"></script>
+
+    <script src="https://rawgit.com/gka/d3-jetpack/master/d3-jetpack.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"
+            charset="utf-8"></script>
+    <link rel="stylesheet"
+          href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+    <script>
+        $(function () {
+            $("#tabs").tabs();
+        });
+    </script>
+
+
+    <title>kNN result page</title>
+</head>
+<body>
+
+<div id="nav">
+    <div id="logo">
+        <a href="{% url 'index' %}"><img src="{% static 'WebApp/img/logo.jpeg' %}" alt="logo"></a>
+    </div>
+    <ul id="navi">
+        <li class="navMenu"><a href="{% url 'honeycell' %}">HoneyCell</a></li>
+        <li class="navMenu"><a href="{% url 'upload' %}">New Task</a></li>
+        <li class="navMenu"><a href="{% url 'preprocess' %}">Pre-processing</a></li>
+        <li class="navMenu"><a href="{% url 'analytics' %}">Analytics</a></li>
+        <li class="navMenu"><a href="{% url 'visualization' %}">Visualization</a></li>
+        <li class="navMenu"><a href="{% url 'logout' %}">Logout</a></li>
+    </ul>
+</div>
+
+{% if flag %}
+    <div id="wrap">
+        <div id="contentwell">
+
+            <div id="tabs">
+                <ul>
+                    <li><a href="#tabs-1">Overall Accuracy</a></li>
+                    <li><a href="#tabs-2">Detail by Class I</a></li>
+                    <li><a href="#tabs-3">Detail by Class II</a></li>
+                    <li><a href="#tabs-4">Confusion Matrix</a></li>
+                </ul>
+
+                <div id="tabs-1">
+                    <h3>Overall Accuracy</h3>
+                    <script>
+                        var width = 400, height = 400, radius = Math.min(width,
+                                        height) / 2;
+
+                        var color = d3.scale.category20();
+
+                        var arc = d3.svg.arc().outerRadius(radius - 10)
+                                .innerRadius(0);
+                        var pie = d3.layout.pie().sort(null).value(function (d) {
+                            return d.v;
+                        });
+
+                        var svg1 = d3.select("#tabs-1").append("svg").attr(
+                                "width", width).attr("height", height).append(
+                                "g").attr(
+                                "transform",
+                                "translate(" + width / 2 + "," + height / 2
+                                + ")");
+
+                        d3.json("static/js/weather0.json", function (error, raw_data) {
+                            console.log(raw_data.m_Correct);
+                            data = [{
+                                "feature": "Yes",
+                                "v": raw_data.m_Correct
+                            }, {
+                                "feature": "No",
+                                "v": raw_data.m_Incorrect
+                            }];
+                            //d3.csv("Accuracy.csv", function(error, data) {
+                            data.forEach(function (d) {
+                                d.v = +d.v;
+                            });
+
+                            var g = svg1.selectAll(".arc").data(pie(data))
+                                    .enter().append("g").attr("class", "arc");
+
+                            g.append("path").attr("d", arc).style("fill",
+                                    function (d) {
+                                        return color(d.data.feature);
+                                    });
+
+                            g.append("text").attr("transform", function (d) {
+                                return "translate(" + arc.centroid(d) + ")";
+                            }).attr("dy", ".35em").style("text-anchor",
+                                    "middle").text(function (d) {
+                                return d.data.feature;
+                            });
+
+                        });
+                    </script>
+
+                </div>
+                <div id="tabs-2">
+                    <h3>Detailed Accuracy by class</h3>
+                    <script src="http://dimplejs.org/dist/dimple.v2.1.6.min.js"></script>
+                    <script type="text/javascript">
+                        var svg2 = dimple.newSvg("#tabs-2", 590, 400);
+                        d3.json("static/sample.json", function (data) {
+                            data = dimple.filterData(data, "Class", ["Yes",
+                                "No"])
+                            var myChart = new dimple.chart(svg2, data);
+                            myChart.setBounds(60, 30, 500, 330);
+                            var x = myChart.addCategoryAxis("x", ["Name"]);
+                            x.addGroupOrderRule("Order");
+                            myChart.addMeasureAxis("y", "Value");
+                            var s = myChart.addSeries("Class",
+                                    dimple.plot.bar);
+                            s.interpolation = "step";
+                            //s.barGap = 0.05;
+                            myChart.addLegend(140, 10, 360, 20, "right");
+                            myChart.draw();
+                        });
+                    </script>
+                </div>
+                <div id="tabs-3">
+                    <h3>Detailed Accuracy by class</h3>
+                    <script src="http://dimplejs.org/dist/dimple.v2.1.6.min.js"></script>
+                    <script type="text/javascript">
+                        var svg3 = dimple.newSvg("#tabs-3", 590, 400);
+                        d3.json("static/sample.json", function (data) {
+                            data = dimple.filterData(data, "Class", ["Yes",
+                                "No"])
+                            var myChart = new dimple.chart(svg3, data);
+                            myChart.setBounds(60, 30, 500, 330);
+                            var x = myChart.addCategoryAxis("x", ["Name"]);
+                            x.addGroupOrderRule("Order");
+                            myChart.addMeasureAxis("y", "Value");
+                            var s = myChart.addSeries("Class",
+                                    dimple.plot.bubble);
+                            s.interpolation = "step";
+                            //s.barGap = 0.05;
+                            myChart.addLegend(140, 10, 360, 20, "right");
+                            myChart.draw();
+                        });
+                    </script>
+                </div>
+                <div id="tabs-4">
+                    <h3>Confusion Matrix</h3>
+
+                    <script>
+                        d3
+                                .json(
+                                        "static/weather0.json",
+                                        function (error, raw_data) {
+                                            // the table rows, typically loaded from data file using d3.csv
+                                            var conMat = [
+                                                {
+                                                    classified: " ",
+                                                    a: "T",
+                                                    b: "F"
+                                                },
+                                                {
+                                                    classified: "P",
+                                                    a: raw_data.m_ConfusionMatrix[0][0],
+                                                    b: raw_data.m_ConfusionMatrix[0][1]
+                                                },
+                                                {
+                                                    classified: "N",
+                                                    a: raw_data.m_ConfusionMatrix[1][0],
+                                                    b: raw_data.m_ConfusionMatrix[1][1]
+                                                },
+
+                                            ];
+
+                                            // column definitions
+                                            var columns = [{
+                                                head: ' ',
+                                                cl: 'classified',
+                                                html: ƒ('classified')
+                                            }, {
+                                                head: 'a = survived',
+                                                cl: 'classified',
+                                                html: ƒ('a')
+                                            }, {
+                                                head: 'b = dead',
+                                                cl: 'classified',
+                                                html: ƒ('b')
+                                            }
+
+                                            ];
+                                            // create table
+
+                                            var table = d3.select('#tabs-4')
+                                                    .append('table').classed(
+                                                            "coMat", true);
+
+                                            // create table header
+                                            table.append('thead').append('tr')
+                                                    .selectAll('th').data(
+                                                    columns).enter()
+                                                    .append('th').attr('class',
+                                                    ƒ('cl')).text(
+                                                    ƒ('head'));
+
+                                            // create table body/
+                                            table
+                                                    .append('tbody')
+                                                    .selectAll('tr')
+                                                    .data(conMat)
+                                                    .enter()
+                                                    .append('tr')
+                                                    .selectAll('td')
+                                                    .data(
+                                                            function (row, i) {
+                                                                return columns
+                                                                        .map(function (c) {
+                                                                            // compute cell values for this specific row
+                                                                            var cell = {};
+                                                                            d3
+                                                                                    .keys(
+                                                                                            c)
+                                                                                    .forEach(
+                                                                                            function (k) {
+                                                                                                cell[k] = typeof c[k] == 'function' ? c[k]
+                                                                                                (
+                                                                                                        row,
+                                                                                                        i)
+                                                                                                        : c[k];
+                                                                                            });
+                                                                            return cell;
+                                                                        });
+                                                            }).enter().append(
+                                                    'td').html(
+                                                    ƒ('html')).attr(
+                                                    'class', ƒ('cl'));
+
+                                            function length() {
+                                                var fmt = d3.format('02d');
+                                                return function (l) {
+                                                    return Math.floor(l / 60)
+                                                            + ':' + fmt(l % 60)
+                                                            + '';
+                                                };
+
+                                            }
+                                        });
+                    </script>
+
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <div id="foot">SIGNATURE</div>
+{% else %}
+    <h1>
+        Waiting for result!
+    </h1>
+{% endif %}
+</body>
+</html>

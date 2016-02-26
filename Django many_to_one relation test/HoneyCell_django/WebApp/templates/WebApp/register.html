@@ -1,0 +1,107 @@
+<html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <meta charset="UTF-8">
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static "WebApp/css/bootstrap.css" %}" type="text/css">
+    <link rel="stylesheet" href="{% static "WebApp/css/result.css" %}" type="text/css">
+    <script src="{% static "WebApp/js/d3.min.js" %}"></script>
+    <script src="{% static "WebApp/js/dimple.v2.1.6.min.js" %}"></script>
+</head>
+
+<body>
+<div id="nav">
+    <div id="logo">
+        <a href="{% url 'index' %}"><img src="{% static 'WebApp/img/logo.jpeg' %}" alt="logo"></a>
+    </div>
+    <ul id="navi">
+        <li class="navMenu"><a href="{% url 'honeycell' %}">HoneyCell</a></li>
+        <li class="navMenu"><a href="{% url 'honeycomb' %}">HoneyComb</a></li>
+        <li class="navMenu"><a href="{% url 'preprocess' %}">Preprocessing</a></li>
+        <li class="navMenu"><a href="{% url 'analytics' %}">Analytics</a></li>
+        <li class="navMenu"><a href="{% url 'visualization' %}">Visualization</a></li>
+    </ul>
+</div>
+<div id="wrap">
+    <div id="contentwell">
+        <h1 class="log"> New User Register</h1>
+        <br>
+        <div id="regDiv">
+
+            <div class="row">
+                <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+                </div>
+                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+                    <div class="table-responsive">
+                        <!-- This form is used for register -->
+                        <form action="" method="POST"> {% csrf_token %}
+                            <table class="table table-hover">
+                                <tbody>
+                                {% if errors %}
+                                    <tr>
+                                        <td colspan="2" style="text-align: center">
+                                            {% for error in errors %}
+                                                <p style="color: red;">{{ error }}</p>
+                                            {% endfor %}
+
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                                <tr>
+                                    <td style="vertical-align: middle">User Name:</td>
+                                    <td>
+                                        <input type="text" name="user_name" class="form-control" value="" title=""
+                                               required="required">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="vertical-align: middle">First Name:</td>
+                                    <td>
+                                        <input type="text" name="first_name" class="form-control" value="" title=""
+                                               required="required">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="vertical-align: middle">Last Name:</td>
+                                    <td>
+                                        <input type="text" name="last_name" class="form-control" value="" title=""
+                                               required="required">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="vertical-align: middle">Password:</td>
+                                    <td>
+                                        <input type="password" name="password" class="form-control" value="" title=""
+                                               required="required">
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="vertical-align: middle">Password Confirmation:</td>
+                                    <td>
+                                        <input type="password" name="password_confirmation" class="form-control"
+                                               value="" title="" required="required">
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a href="{% url 'login' %}" class="btn btn-primary">Sign in</a>
+                                    </td>
+                                    <td colspan="2" align="center">
+                                        <button type="submit" class="btn btn-primary">Registe</button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

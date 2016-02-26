@@ -1,0 +1,38 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static "WebApp/css/bootstrap.css" %}" type="text/css">
+    <link rel="stylesheet" href="{% static "WebApp/css/result.css" %}" type="text/css">
+    <script src="{% static "WebApp/js/d3.min.js" %}"></script>
+    <script src="{% static "WebApp/js/dimple.v2.1.6.min.js" %}"></script>
+</head>
+
+<body>
+<div id="nav">
+    <div id="logo">
+
+        <a href="{% url 'index' %}"><img src="{% static "WebApp/img/logo.jpeg" %}" alt="logo"></a>
+    </div>
+    <ul id="navi">
+        <li class="navMenu"><a href="{% url 'honeycell' %}">HoneyCell</a></li>
+        <li class="navMenu"><a href="{% url 'honeycomb' %}">HoneyComb</a></li>
+        <li class="navMenu"><a href="{% url 'preprocess' %}">Preprocessing</a></li>
+        <li class="navMenu"><a href="{% url 'analytics' %}">Analytics</a></li>
+        <li class="navMenu"><a href="{% url 'visualization' %}">Visualization</a></li>
+        <li class="navMenu"><a href="{% url 'logout' %}">Logout</a></li>
+    </ul>
+</div>
+<div id="wrap">
+    <div id="contentwell">
+
+        <h1>This is index page.</h1>
+
+
+
+
+    </div>
+</div>
+</body>
+</html>

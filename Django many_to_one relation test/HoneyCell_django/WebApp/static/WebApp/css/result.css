@@ -1,0 +1,164 @@
+@CHARSET "UTF-8";
+
+body {
+	width: 100%;
+	text-align: center;
+
+}
+
+
+#regP3{
+	margin-left: -6.5%;
+}
+.regP2{
+
+margin-left: 5%;
+
+}
+#wrap{
+	background-image: url("../img/bg3.jpg");
+	height: 800px;
+	
+}
+#nav {
+	position: relative;
+	width: 100%;
+	height: 120px;
+	box-shadow: 5px 5px 10px gray;
+}
+
+#logo {
+	margin-left: 2%;
+	position: relative;
+	width: 14%;
+	height: 120px;
+	float: left;
+	position: relative;
+}
+
+.navMenu {
+	list-style: none;
+	height: 120px;
+	float: left;
+	padding-top: 15px;
+	padding-left: 20px; margin-top : 20px; margin-left : 20px;
+	margin-right: 20px;
+	font-weight: bold;
+	font-size: 1.2em;
+	margin-left: 20px;
+	margin-top: 25px;
+}
+
+.navMenu:hover {
+	background-image: url("../img/onclick.png");
+	background-repeat: no-repeat;
+}
+
+.navMenu:first-of-type {
+	margin-left: 10%;
+}
+
+.navMenu a {
+	text-decoration: none;
+	
+	color: black;
+}
+
+#contentwell {
+	padding: 20px;
+	width: 75%;
+	margin: 0 auto;
+	margin-top: 5px;
+	background-color: white;
+	box-shadow: 2px 2px 5px black;
+	opacity: 0.9;
+}
+
+
+canvas.vChart{
+	
+	position: relative;
+	width: 90%;
+	border: 1px solid black;
+}
+
+table {
+	
+}
+
+table tr {
+	
+}
+
+.myButton {
+	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	box-shadow:inset 0px 1px 0px 0px #ffffff;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ffffff), color-stop(1, #f6f6f6));
+	background:-moz-linear-gradient(top, #ffffff 5%, #f6f6f6 100%);
+	background:-webkit-linear-gradient(top, #ffffff 5%, #f6f6f6 100%);
+	background:-o-linear-gradient(top, #ffffff 5%, #f6f6f6 100%);
+	background:-ms-linear-gradient(top, #ffffff 5%, #f6f6f6 100%);
+	background:linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f6f6f6',GradientType=0);
+	background-color:#ffffff;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #dcdcdc;
+	display:inline-block;
+	cursor:pointer;
+	color:#666666;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #ffffff;
+}
+.myButton:hover {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #f6f6f6), color-stop(1, #ffffff));
+	background:-moz-linear-gradient(top, #f6f6f6 5%, #ffffff 100%);
+	background:-webkit-linear-gradient(top, #f6f6f6 5%, #ffffff 100%);
+	background:-o-linear-gradient(top, #f6f6f6 5%, #ffffff 100%);
+	background:-ms-linear-gradient(top, #f6f6f6 5%, #ffffff 100%);
+	background:linear-gradient(to bottom, #f6f6f6 5%, #ffffff 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f6f6f6', endColorstr='#ffffff',GradientType=0);
+	background-color:#f6f6f6;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
+}
+
+
+table tr td {
+	text-align: right;
+	padding: 10px;
+	border-bottom: 1px dotted black;
+}
+
+table tr td:first-child {
+	border-right: 1px solid black;
+}
+
+table, .coMat {
+	margin: 0 auto;
+}
+
+.log{
+	position: relative;
+	width: 50%;
+	margin: 0 auto;
+
+	
+}
+
+#regiBut{
+	position: relative;
+	top: -34px;
+	margin-left: 15%;
+
+
+
+}

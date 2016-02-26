@@ -1,0 +1,105 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static "WebApp/css/bootstrap.css" %}" type="text/css">
+    <link rel="stylesheet" href="{% static "WebApp/css/result.css" %}" type="text/css">
+    <script src="{% static "WebApp/js/d3.min.js" %}"></script>
+    <script src="{% static "WebApp/js/dimple.v2.1.6.min.js" %}"></script>
+</head>
+
+<body>
+<div id="nav">
+    <div id="logo">
+        <a href="{% url 'index' %}"><img src="{% static "WebApp/img/logo.jpeg" %}" alt="logo"></a>
+    </div>
+    <ul id="navi">
+        <li class="navMenu"><a href="{% url 'honeycell' %}">HoneyCell</a></li>
+        <li class="navMenu"><a href="{% url 'upload' %}">New Task</a></li>
+        <li class="navMenu"><a href="{% url 'preprocess' %}">Preprocessing</a></li>
+        <li class="navMenu"><a href="{% url 'analytics' %}">Analytics</a></li>
+        <li class="navMenu"><a href="{% url 'visualization' %}">Visualization</a></li>
+        <li class="navMenu"><a href="{% url 'logout' %}">Logout</a></li>
+    </ul>
+</div>
+
+<h2 class="log"> Hello {{ user }} </h2>
+
+<div class="container">
+    <div class="row" align="center">
+        <h1>This is add_reporter page.</h1>
+
+        <hr>
+
+        <form action="{% url 'add_reporter' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <h3 align="center" style="color: red">
+                        {% for error in errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </h3>
+                    <thead>
+                    <tr>
+                        <th colspan="2"><h3 align="center">Add new reporter</h3></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>
+                            <label>First name: </label>
+                        </td>
+                        <td>
+                            <input type="text" name="first_name" value="{{ first_name }}" required/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>Last name: </label>
+                        </td>
+                        <td>
+                            <input type="text" name="last_name" value="{{ last_name }}" required/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>Email: </label>
+                        </td>
+                        <td>
+                            <input type="email" name="email" value="{{ email }}" required/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><p align="center"><input type="submit" value="Save the reporter"></p></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </form>
+    </div>
+
+    <hr>
+
+    <h2><a href="{% url 'show_reporters' %}"><button>Show all reporters</button></a></h2>
+
+    <hr>
+
+    <h2><a href="{% url 'message' %}"><button>Back to meesage page</button></a></h2>
+
+    <hr>
+
+</div>
+
+<h3>
+    Welcome to HoneyCell WebServer!
+</h3>
+<form method="get" action="{% url 'logout' %}">{% csrf_token %}
+    <p>
+        <button type="submit">Log Out</button>
+    </p>
+</form>
+
+</body>
+</html>

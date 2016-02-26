@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static "WebApp/css/bootstrap.css" %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'WebApp/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static "WebApp/css/result.css" %}" type="text/css">
+    <script src="{% static "WebApp/js/d3.min.js" %}"></script>
+    <script src="{% static "WebApp/js/dimple.v2.1.6.min.js" %}"></script>
+</head>
+
+<body>
+<div id="nav">
+    <div id="logo">
+        <a href="{% url 'index' %}"><img src="{% static 'WebApp/img/logo.jpeg' %}" alt="logo"></a>
+    </div>
+    <ul id="navi">
+        <li class="navMenu"><a href="{% url 'honeycell' %}">HoneyCell</a></li>
+        <li class="navMenu"><a href="{% url 'upload' %}">New Task</a></li>
+        <li class="navMenu"><a href="{% url 'preprocess' %}">Pre-processing</a></li>
+        <li class="navMenu"><a href="{% url 'analytics' %}">Analytics</a></li>
+        <li class="navMenu"><a href="{% url 'visualization' %}">Visualization</a></li>
+        <li class="navMenu"><a href="{% url 'logout' %}">Logout</a></li>
+    </ul>
+
+</div>
+
+
+<div class="container">
+    <div class="header">
+        <h1 class="text-muted">Uploaded files</h1>
+    </div>
+    <hr/>
+    <div>
+
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+
+        </div>
+        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8" align="center">
+            <p>Please upload your training data and testing data</p>
+
+            <form action="" method=post enctype=multipart/form-data>
+                <p><input type=file name="file[]" multiple></p>
+                <hr>
+                <input type=submit value=Upload>
+            </form>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+        </div>
+    </div>
+    <hr/>
+</div>
+</div>
+</body>
+</html>

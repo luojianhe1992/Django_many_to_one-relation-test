@@ -1,0 +1,60 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static "WebApp/css/bootstrap.css" %}" type="text/css">
+    <link rel="stylesheet" href="{% static "WebApp/css/result.css" %}" type="text/css">
+    <script src="{% static "WebApp/js/d3.min.js" %}"></script>
+    <script src="{% static "WebApp/js/dimple.v2.1.6.min.js" %}"></script>
+</head>
+
+<body>
+<div id="nav">
+    <div id="logo">
+        <a href="{% url 'index' %}"><img src="{% static "WebApp/img/logo.jpeg" %}" alt="logo"></a>
+    </div>
+    <ul id="navi">
+        <li class="navMenu"><a href="{% url 'honeycell' %}">HoneyCell</a></li>
+        <li class="navMenu"><a href="{% url 'upload' %}">New Task</a></li>
+        <li class="navMenu"><a href="{% url 'preprocess' %}">Preprocessing</a></li>
+        <li class="navMenu"><a href="{% url 'analytics' %}">Analytics</a></li>
+        <li class="navMenu"><a href="{% url 'visualization' %}">Visualization</a></li>
+        <li class="navMenu"><a href="{% url 'logout' %}">Logout</a></li>
+    </ul>
+</div>
+
+<h2 class="log"> Hello {{ user }} </h2>
+
+<hr>
+
+<h2><a href="{% url 'add_reporter' %}"><button>Add reporter</button></a></h2>
+
+<hr>
+
+<h2><a href="{% url 'add_article' %}"><button>Add article</button></a></h2>
+
+<hr>
+
+<h2><a href="{% url 'show_reporters' %}"><button>Show all reporters</button></a></h2>
+
+<hr>
+
+<h2><a href="{% url 'show_articles' %}"><button>Show all articles</button></a></h2>
+
+<hr>
+
+<h2><a href="{% url 'show_reporters_articles' %}"><button>Show all reporters and all articles</button></a></h2>
+
+<hr>
+
+<h3>
+    Welcome to HoneyCell WebServer!
+</h3>
+<form method="get" action="{% url 'logout' %}">{% csrf_token %}
+    <p><button type="submit">Log Out</button></p>
+</form>
+
+</body>
+</html>
+
